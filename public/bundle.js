@@ -65,27 +65,22 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-var _whiteboard = __webpack_require__(1);
-
-var _whiteboard2 = _interopRequireDefault(_whiteboard);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__whiteboard__ = __webpack_require__(1);
+// Import from the module './whiteboard':
+//   The default export, naming it draw,
+//   An export named `events`, calling it `whiteboard`.
 
 // const socketio = require('socket.io');
 
 var socket = io(window.location.origin);
 // Example: Draw a single stroke.
-// Import from the module './whiteboard':
-//   The default export, naming it draw,
-//   An export named `events`, calling it `whiteboard`.
-(0, _whiteboard.draw)([0, 0], [250, 250], 'red', true);
+Object(__WEBPACK_IMPORTED_MODULE_0__whiteboard__["b" /* draw */])([0, 0], [250, 250], 'red', true);
 
-_whiteboard2.default.on('draw', function (payload) {
+__WEBPACK_IMPORTED_MODULE_0__whiteboard__["a" /* default */].on('draw', function (payload) {
   console.log(payload);
 });
 
@@ -95,9 +90,12 @@ socket.on('connect', function () {
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (immutable) */ __webpack_exports__["b"] = draw;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_events__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_events___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_events__);
 
 
 /**
@@ -108,23 +106,15 @@ socket.on('connect', function () {
  *   - events: an EventEmitter that emits `draw` events.
  */
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.draw = draw;
 
-var _events = __webpack_require__(2);
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+const events = new __WEBPACK_IMPORTED_MODULE_0_events__["EventEmitter"]();
 
-var events = new _events.EventEmitter();
-
-exports.default = events;
+/* harmony default export */ __webpack_exports__["a"] = (events);
 
 //// Canvas setup
-
-var canvas = document.createElement('canvas');
-var ctx = canvas.getContext('2d');
+const canvas = document.createElement('canvas');
+const ctx = canvas.getContext('2d');
 
 /**
  * Draw a line on the whiteboard.
@@ -134,16 +124,13 @@ var ctx = canvas.getContext('2d');
  * @param {String} strokeColor color of the line
  * @param {bool} shouldBroadcast whether to emit an event for this draw
  */
-function draw(start, end) {
-    var strokeColor = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'black';
-    var shouldBroadcast = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
-
+function draw(start, end, strokeColor = 'black', shouldBroadcast = true) {
     // Draw the line between the start and end positions
     // that is colored with the given color.
     ctx.beginPath();
     ctx.strokeStyle = strokeColor;
-    ctx.moveTo.apply(ctx, _toConsumableArray(start));
-    ctx.lineTo.apply(ctx, _toConsumableArray(end));
+    ctx.moveTo(...start);
+    ctx.lineTo(...end);
     ctx.closePath();
     ctx.stroke();
 
@@ -154,20 +141,20 @@ function draw(start, end) {
 
 // State
 //// Stroke color
-var color = void 0;
+let color;
 //// Position tracking
-var currentMousePosition = {
+let currentMousePosition = {
     x: 0,
     y: 0
 };
 
-var lastMousePosition = {
+let lastMousePosition = {
     x: 0,
     y: 0
 };
 
 //// Color picker settings
-var colors = ['black', 'purple', 'red', 'green', 'orange', 'yellow', 'brown'];
+const colors = ['black', 'purple', 'red', 'green', 'orange', 'yellow', 'brown'];
 
 function setup() {
     document.body.appendChild(canvas);
@@ -177,24 +164,20 @@ function setup() {
 }
 
 function setupColorPicker() {
-    var picker = document.createElement('div');
+    const picker = document.createElement('div');
     picker.classList.add('color-selector');
-    colors.map(function (color) {
-        var marker = document.createElement('div');
+    colors.map(color => {
+        const marker = document.createElement('div');
         marker.classList.add('marker');
         marker.dataset.color = color;
         marker.style.backgroundColor = color;
         return marker;
-    }).forEach(function (color) {
-        return picker.appendChild(color);
-    });
+    }).forEach(color => picker.appendChild(color));
 
-    picker.addEventListener('click', function (_ref) {
-        var target = _ref.target;
-
+    picker.addEventListener('click', ({ target }) => {
         color = target.dataset.color;
         if (!color) return;
-        var current = picker.querySelector('.selected');
+        const current = picker.querySelector('.selected');
         current && current.classList.remove('selected');
         target.classList.add('selected');
     });

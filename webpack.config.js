@@ -6,7 +6,7 @@
 
 module.exports = {
   /* starting point for our frontend JavaScript (place to enter when bundling) */
-  entry: './client/index.js',
+  entry: './public/index.js',
   /* where to output our newly bundled file */
   output: {
     path: __dirname + '/public', // the ABSOLUTE path for the directory
