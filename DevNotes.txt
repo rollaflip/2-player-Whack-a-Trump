@@ -1,0 +1,33 @@
+Create player 1:
+
+places moles
+moles last 2 seconds.
+if mole is not whacked, give p1 point
+
+places cat with right click (disable?):
+placed with right click
+    if cat whacked p2 loses 3 points
+
+
+Create player 2:
+
+whacks moles.
+++ points for every whacked mole
+    Dont hit the cat! -3 points
+
+
+
+
+
+
+
+
+
+
+
+Technology needed:  socket io to connect two players
+
+    sockets to include other spectators?
+
+
+Ideas: Cursor is a hammer, or its an 'impeach peach'

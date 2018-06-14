@@ -1,0 +1,24 @@
+{
+  "name": "World-Wide-Whiteboard",
+  "version": "1.0.0",
+  "description": "socket.io workshop @ Fullstack Academy",
+  "main": "index.js",
+  "author": "instructors@fullstackacademy.com",
+  "scripts": {
+    "start": "webpack -w & nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.12.3",
+    "fs": "0.0.1-security",
+    "node": "^10.0.0",
+    "nodemon": "^1.17.4",
+    "socket.io": "^2.1.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "webpack": "^3.6.0"
+  }
+}
